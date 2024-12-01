@@ -7,11 +7,17 @@ repos:
     rev: v4.6.0
     hooks:
       - id: trailing-whitespace # Removes trailing whitespaces
+        exclude: \.txt$
       - id: end-of-file-fixer # Makes sure files end in a newline and only a newline
+        exclude: \.txt$
       - id: check-yaml # Loads all yaml files to verify syntax
+        exclude: \.txt$
       - id: check-added-large-files # Prevents giant files from being committed (default=500kB)
+        exclude: \.txt$
       - id: debug-statements # Removes debug statements which should never be in production
+        exclude: \.txt$
       - id: requirements-txt-fixer # Sorts entries in requirements.txt and constraints.txt and removes incorrect entry for pkg-resources==0.0.0
+        exclude: \.txt$
 
   # Python code formatter
   - repo: https://github.com/astral-sh/ruff-pre-commit

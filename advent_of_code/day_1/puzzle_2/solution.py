@@ -5,14 +5,15 @@ from typing import List
 
 def load_data() -> str:
     """Load the data."""
-    with open("advent_of_code/day_1/puzzle_1/data.txt") as f:
+    with open("advent_of_code/day_1/puzzle_2/data.txt") as f:
         data = f.read()
     return data
 
 
 def process_data(data: str):
     """Process the data."""
-    data_1, data_2 = [], []
+    data_1 = []
+    data_2 = []
     for line in data.split("\n"):
         part1, part2 = line.split("   ")
         data_1.append(int(part1))
