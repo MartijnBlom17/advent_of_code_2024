@@ -1,11 +1,11 @@
 """The solution for puzzle 1."""
 
-from typing import List
+from typing import List, Tuple
 
 
 def load_data() -> str:
     """Load the data."""
-    with open("advent_of_code/day_4/puzzle_2/data.txt") as f:
+    with open("advent_of_code/day_4/puzzle_1/data.txt") as f:
         data = f.read()
     return data
 
@@ -41,28 +41,28 @@ def get_diag_data_2(data: List[str]) -> List[str]:
     return data_diag
 
 
-def preprocess_data(data: str) -> List[str]:
+def preprocess_data(data: str) -> Tuple[List[str], List[str], List[str], List[str]]:
     """Preprocess the data."""
-    return data.split("\n")
+    # Horizontal data set
+    data_hor = data.split("\n")
+    # Vertical data set
+    data_ver = get_ver_data(data_hor)
+    # Get the left to right diagonal data set
+    data_diag1 = get_diag_data_1(data_hor)
+    # Get the right to left diagonal data set
+    data_diag2 = get_diag_data_2(data_hor)
+    return data_hor, data_ver, data_diag1, data_diag2
 
 
 def get_matches(data: List[str]) -> int:
     """Get the matches."""
     matches = 0
-    for i in range(1, len(data) - 1):
-        for j in range(1, len(data) - 1):
-            if data[i][j] == "A":
-                if (
-                    (data[i - 1][j - 1] == "M" and data[i + 1][j + 1] == "S")
-                    or data[i - 1][j - 1] == "S"
-                    and data[i + 1][j + 1] == "M"
-                ):
-                    if (
-                        (data[i - 1][j + 1] == "S" and data[i + 1][j - 1] == "M")
-                        or data[i - 1][j + 1] == "M"
-                        and data[i + 1][j - 1] == "S"
-                    ):
-                        matches += 1
+    for row in data:
+        for i in range(len(row) - 3):
+            # fmt: off
+            if row[i:i + 4] in ["XMAS", "SAMX"]:
+                # fmt: on
+                matches += 1
     return matches
 
 
@@ -70,9 +70,14 @@ def main():
     """The main function."""
     data = load_data()
 
-    data_prep = preprocess_data(data)
+    dat_hor, dat_ver, data_diag1, data_diag2 = preprocess_data(data)
 
-    return get_matches(data_prep)
+    hor_matches = get_matches(dat_hor)
+    ver_matches = get_matches(dat_ver)
+    diag1_matches = get_matches(data_diag1)
+    diag2_matches = get_matches(data_diag2)
+
+    return hor_matches + ver_matches + diag1_matches + diag2_matches
 
 
 if __name__ == "__main__":
