@@ -31,12 +31,12 @@ def determine_all_potential_antinodes(df, locations_coor, i, j):
     """Determine all potential antinodes."""
     x_dist = locations_coor[i][0] - locations_coor[j][0]
     y_dist = locations_coor[i][1] - locations_coor[j][1]
-    print(locations_coor[i], locations_coor[j])
+
     anti_nodes_1 = [locations_coor[i]]
     anti_nodes_2 = [locations_coor[j]]
     max_dist = df.shape[0] + df.shape[1]
     max_nodes = max(abs(np.ceil(max_dist / x_dist)), abs(np.ceil(max_dist / y_dist)))
-    print(max_nodes)
+
     for x in range(int(max_nodes)):
         anti_nodes_1.append((locations_coor[i][0] + (x_dist * (x + 1)), locations_coor[i][1] + (y_dist * (x + 1))))
         anti_nodes_2.append((locations_coor[j][0] - (x_dist * (x + 1)), locations_coor[j][1] - (y_dist * (x + 1))))
@@ -48,8 +48,6 @@ def antinode_locs(
 ) -> List[Tuple[int, int]]:
     """Find the antinodes."""
     anti_nodes_1, anti_nodes_2 = determine_all_potential_antinodes(df, locations_coor, i, j)
-    print(anti_nodes_1)
-    print(anti_nodes_2)
 
     for anti_node1 in anti_nodes_1:
         node1 = add_node(df, anti_node1)
